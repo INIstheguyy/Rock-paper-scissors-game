@@ -8,6 +8,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="openPopUp">
+        <h3>Welcome to <span>INI's</span> Rock Paper Scissors game!!!</h3>
+    </div>
+    <button class="startGame">Start-Game</button>
+    <section class="gameGround">
+        <h2>Rock Paper Scissors</h2>
+        <h5>Round : <span class="gameCurrentRound"></span></h5>
+        <div class="gameBox">
+            <div class="playerSelection">
+                <div class="playerSelectionBox">
+                    <h4>Player 1</h4>
+                    <div class="playerIconBox">
+                        <img  class="playerpick rock" src="assets/rock.png" alt="">
+                        <img class="playerpick paper"  src="assets/paper.png" alt="">
+                        <img class="playerpick scissors"  src="assets/scissors.png" alt="">
+                    </div>
+                    <p>Your choice: <span class="playerCurrentChoice"></span></p>
+                </div>
+                <p class="playerScore"></p>
+            </div>
+            <h3 class="roundResult">A draw!!!</h3>
+            <div class="compSelection">
+                <div class="compSelectionBox">
+                    <h4>Computer</h4>
+                    <div class="compIconBox">
+                        <img src="assets/rock.png" alt="">
+                        <img src="assets/paper.png" alt="">
+                        <img src="assets/scissors.png" alt="">
+                    </div>
+                    <p>computer choice: <span class="compCurrentChoice"></span></p>
+                </div>
+                <p class="compScore"></p>
+            </div>
+        </div>
+        <button class="resetGame">Reset</button>
+    </section>
     <script src="app.js"></script>
 </body>
 </html>
