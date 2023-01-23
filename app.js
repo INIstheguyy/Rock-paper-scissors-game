@@ -1,76 +1,146 @@
-const openPopUp = document.querySelector('.openPopUp');
-const startGame = document.querySelector('.startGame');
-const gameGround = document.querySelector('.gameGround');
-const gameCurrentRound = document.querySelector('.gameCurrentRound');
-const playerCurentChoice = document.querySelector('.playerCurentChoice');
-const roundResult = document.querySelector('.roundResult');
-const compCurrentChoice = document.querySelector('.compCurrentChoice');
-const playerScore = document.querySelector('.playerScore');
-const compScore = document.querySelector('.compScore');
-const resetGame = document.querySelector('.resetGame');
+const openPopUp = document.querySelector(".openPopUp");
+const startGame = document.querySelector(".startGame");
+const gameGround = document.querySelector(".gameGround");
+const gameCurrentRound = document.querySelector(".gameCurrentRound");
+const playerScore = document.querySelector(".playerScore");
+const compScore = document.querySelector(".compScore");
+const resetGame = document.querySelector(".resetGame");
+const playerIconBox = document.querySelector(".playerIconBox");
+const playerPick = playerIconBox.querySelector("img");
+const rockChoice = playerIconBox.querySelector(".rock");
+const paperChoice = playerIconBox.querySelector(".paper");
+const scissorsChoice = playerIconBox.querySelector(".scissors");
+const compIconBox = document.querySelector(".compIconBox");
+const compPick = compIconBox.querySelector("img");
+const rockCompChoice = compIconBox.querySelector(".rock");
+const paperCompChoice = compIconBox.querySelector(".paper");
+const scissorsCompChoice = compIconBox.querySelector(".scissors");
+const playerSection = document.querySelector(".playerSelection");
 
-const playerIconBox = document.querySelector('.playerIconBox');
 
+const ROCK = "Your choice: Rock";
+const PAPER = "Your choice: paper";
+const SCISSORS = "Your choice: Scissors";
 
-
-const ROCK = 'Rock';
-const PAPER = 'Paper';
-const SCISSORS = 'scissors';
+const COMPROCK ="Computer choice: Rock";
+const COMPPAPER ="Computer choice: Paper";
+const COMPSCISSORS = "Computer choice: Scissors";
 
 function delay() {
-    window.onload = function() {
-      setTimeout(function() {
-        openPopUp.style.display = 'none';
-        startGame.style.display = 'block';
-      }, 2500);
-    }
-  }
-  
- delay();
+  window.onload = function () {
+    setTimeout(function () {
+      openPopUp.style.display = "none";
+      startGame.style.display = "block";
+    }, 2500);
+  };
+}
+
+delay();
+
+startGame.addEventListener("click", function (e) {
+  e.preventDefault();
+  startGame.style.display = "none";
+  gameGround.style.display = "block";
+});
 
 
- startGame.addEventListener('click', function(e){
-    e.preventDefault();
-    startGame.style.display = 'none';
-    gameGround.style.display = 'block';
- })
- const rockChoice = document.querySelector('.rock');
-const paperChoice = document.querySelector('.paper');
-const scissorsChoice = document.querySelector('.scissors');
-// const playerPick = playerIconBox.querySelector('img')
+rockChoice.addEventListener("click", () => playerSelection("rock"));
+paperChoice.addEventListener("click", () => playerSelection("paper"));
+scissorsChoice.addEventListener("click", () => playerSelection("scissors"));
 
- rockChoice.addEventListener('click', playerChoice)
- paperChoice.addEventListener('click', playerChoice)
- scissorsChoice.addEventListener('click', playerChoice)
-
- playerPick = Math.random * 1
- console.log(playerChoice)
- function playerChoice(){
-  if(playerPick < 0.34){
-    playerPick === rockChoice
-    alert('rock')
-  }
-  else if(playerPick > 0.67){
-    playerPick === paperChoice
-    alert('paper')
+function playerSelection(choice) {
+  if(choice === "rock") {
+    rock();
+  } 
+  else if (choice === "paper"){
+    paper();
   }
   else{
-    playerPick === scissorsChoice
-    alert('scissors')
+    scissors();
   }
-  
- }
-// function playerSelection(){
-//   if(playerPick[0] === rockChoice){
-    
-//   }else if(playerPick[1] === paperChoice){
-    
-//   }else{
-   
-//   }
-// }
- 
+  computerSelection();
+  getWinner();
+}
+const playerCurentChoice = document.createElement("p")
+playerCurentChoice.style.color = "white"
+const compCurentChoice = document.createElement("p")
+compCurentChoice.style.color = "white"
 
+function rock(){
+  paperChoice.style.visibility = "hidden"
+  scissorsChoice.style.visibility = "hidden"
+  playerCurentChoice.textContent = ROCK
+  playerIconBox.insertAdjacentElement("beforeend", playerCurentChoice)
+}
 
+function paper(){
+  rockChoice.style.visibility = "hidden"
+  scissorsChoice.style.visibility = "hidden"
+  playerCurentChoice.textContent = PAPER
+  playerIconBox.insertAdjacentElement("beforeend", playerCurentChoice)
+}
 
+function scissors(){
+  paperChoice.style.visibility = "hidden"
+  rockChoice.style.visibility = "hidden"
+  playerCurentChoice.textContent = SCISSORS
+  playerIconBox.insertAdjacentElement("beforeend", playerCurentChoice)
+}
+function compRock(){
+  paperCompChoice.style.visibility = "hidden"
+  scissorsCompChoice.style.visibility = "hidden"
+  compCurentChoice.textContent = COMPROCK
+  compIconBox.insertAdjacentElement("beforeend", compCurentChoice)
+}
+function compPaper(){
+  rockCompChoice.style.visibility = "hidden"
+  scissorsCompChoice.style.visibility = "hidden"
+  compCurentChoice.textContent = COMPPAPER
+  compIconBox.insertAdjacentElement("beforeend", compCurentChoice)
+}
+function compScissors(){
+  rockCompChoice.style.visibility = "hidden"
+  paperCompChoice.style.visibility = "hidden"
+  compCurentChoice.textContent = COMPSCISSORS
+  compIconBox.insertAdjacentElement("beforeend", compCurentChoice)
+}
+function computerSelection(){
+  const randomNumber = Math.random() * 0.5
+  console.log(randomNumber)
+  if(randomNumber < 0.17){
+    compRock();
+  }
+  else if(randomNumber < 0.34){
+    compPaper();
+  }
+  else{
+    compScissors();
+  }
+}
+
+const roundResult = document.createElement("h3")
+roundResult.style.color = "white"
+function getWinner(){
+  if(playerCurentChoice === ROCK && compCurentChoice === COMPSCISSORS ||
+     playerCurentChoice === SCISSORS && compCurentChoice === COMPPAPER ||
+     playerCurentChoice === PAPER && compCurentChoice === COMPROCK 
+    )
+    {
+      roundResult.textContent = "You win! :)";
+      playerSection.insertAdjacentHTML("afterend",roundResult)
+    }
+    else if(
+      playerCurentChoice === PAPER && compCurentChoice === COMPSCISSORS ||
+      playerCurentChoice === ROCK && compCurentChoice === COMPPAPER ||
+      playerCurentChoice === SCISSORS && compCurentChoice === COMPROCK 
+    )
+    {
+      roundResult.textContent = "You lost! :("
+      playerSection.insertAdjacentHTML("afterend",roundResult)
+    }
+    else{
+      roundResult.textContent = "It's a draw!"
+      playerSection.insertAdjacentHTML("afterend",roundResult)
+    }
+}
 
