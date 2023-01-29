@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DNB's RPS game</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <div class="openPopUp">
-        <h3>Welcome to <span>INI's</span> Rock Paper Scissors game!!!</h3>
+      <h3>Welcome to <span>INI's</span> Rock Paper Scissors game!!!</h3>
     </div>
     <button class="startGame">Start-Game</button>
     <section class="gameGround">
-        <h2>Rock Paper Scissors</h2>
-        <h5>Round : <span class="gameCurrentRound">0</span></h5>
-        <div class="gameBox">
-            <div class="playerSelection">
-                <div class="playerSelectionBox">
-                    <h4>Player 1</h4>
-                    <div class="playerIconBox">
-                        <img  class="playerpick rock" src="assets/rock.png" alt="">
-                        <img class="playerpick paper"  src="assets/paper.png" alt="">
-                        <img class="playerpick scissors"  src="assets/scissors.png" alt="">
-                    </div>
-                </div>
-                <p class="playerScore"></p>
+      <h2>Rock Paper Scissors</h2>
+      <h5>Round : <span class="gameCurrentRound">0</span></h5>
+      <div class="gameBox">
+        <div class="playerSelection">
+          <div class="playerSelectionBox">
+            <h4>Player 1</h4>
+            <div class="playerIconBox">
+              <img class="playerpick rock" src="assets/rock.png" alt="" />
+              <img class="playerpick paper" src="assets/paper.png" alt="" />
+              <img
+                class="playerpick scissors"
+                src="assets/scissors.png"
+                alt=""
+              />
             </div>
-            <div class="compSelection">
-                <div class="compSelectionBox">
-                    <h4>Computer</h4>
-                    <div class="compIconBox">
-                        <img class="rock" src="assets/rock.png" alt="">
-                        <img class="paper" src="assets/paper.png" alt="">
-                        <img class="scissors" src="assets/scissors.png" alt="">
-                    </div>
-                </div>
-                <p class="compScore"></p>
-            </div>
+          </div>
+          Score:
+          <p class="playerScore">0</p>
         </div>
-        <button class="resetGame">Reset</button>
+        <div class="compSelection">
+          <div class="compSelectionBox">
+            <h4>Computer</h4>
+            <div class="compIconBox">
+              <img class="rock" src="assets/rock.png" alt="" />
+              <img class="paper" src="assets/paper.png" alt="" />
+              <img class="scissors" src="assets/scissors.png" alt="" />
+            </div>
+          </div>
+
+          Score:
+          <p class="compScore">0</p>
+        </div>
+      </div>
+      <button class="resetGame">Reset</button>
+    </section>
+    <section id="result" style="color: white">
+      <h3>Result</h3>
+
+      <p>Player Score is: <span class="playerScore">0</span></p>
+      <p>Computer Score is: <span class="compScore">0</span></p>
+
+      <button id="play-game-again">Play Again</button>
     </section>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
