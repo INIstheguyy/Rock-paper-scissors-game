@@ -201,7 +201,7 @@ function getWinner(CHOICE, randomNumber) {
 
   const nextRound = round + 1;
 
-  if (nextRound < 6) {
+  if (nextRound < 11) {
     localStorage.setItem("round", nextRound);
     gameCurrentRound.textContent = nextRound;
 
