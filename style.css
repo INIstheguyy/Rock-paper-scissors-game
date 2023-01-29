@@ -1,57 +1,56 @@
-  @import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@500&display=swap');
-  /* font-family: 'Sofia Sans', sans-serif; */
-body{
-    background-color: black;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@500&display=swap");
+/* font-family: 'Sofia Sans', sans-serif; */
+body {
+  background-color: black;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
-.openPopUp{
-    background-color: white;
-    font-family: 'Sofia Sans', sans-serif;
-    width: fit-content; 
-    position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translate(0, -50%);
-    padding: 10%;
+.openPopUp {
+  background-color: white;
+  font-family: "Sofia Sans", sans-serif;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translate(0, -50%);
+  padding: 10%;
 }
-.startGame{
-    font-family: 'Sofia Sans', sans-serif;
-    font-size: 5vw;
-    color: white;
-    border: 2px solid white;
-    background-color: black;
-    position: absolute;
-    top: 50%;
-    left: 37.5%;
-    transform: translate(0, -50%);
-    display: none;
-    padding: 2.5%;
-    border-radius: 10px;
-
+.startGame {
+  font-family: "Sofia Sans", sans-serif;
+  font-size: 5vw;
+  color: white;
+  border: 2px solid white;
+  background-color: black;
+  position: absolute;
+  top: 50%;
+  left: 37.5%;
+  transform: translate(0, -50%);
+  display: none;
+  padding: 2.5%;
+  border-radius: 10px;
 }
-.gameGround{
-    display: none;
-    color: white;
-    font-family: 'Sofia Sans', sans-serif;
+.gameGround {
+  display: none;
+  color: white;
+  font-family: "Sofia Sans", sans-serif;
 }
-.gameBox{
-    display: flex;
-    justify-content: space-between;
+.gameBox {
+  display: flex;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 900px) {
-    .openPopUp{
-        left: 20%;
-    }  
+  .openPopUp {
+    left: 20%;
+  }
 }
 
 @media screen and (max-width: 580px) {
-    .openPopUp{
-        left: 0;
-    }
-    .gameBox{
-        display: block;
-    }
+  .openPopUp {
+    left: 0;
+  }
+  .gameBox {
+    display: block;
+  }
 }
