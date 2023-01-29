@@ -2,9 +2,9 @@ const openPopUp = document.querySelector(".openPopUp");
 const startGame = document.querySelector(".startGame");
 const gameGround = document.querySelector(".gameGround");
 const gameBox = document.querySelector(".gameBox");
-let  gameCurrentRound = document.querySelector(".gameCurrentRound").value;
-let playerScore = document.querySelector(".playerScore");
-const compScore = document.querySelector(".compScore");
+let gameCurrentRound = document.querySelector(".gameCurrentRound");
+let playerScore = document.querySelectorAll(".playerScore");
+const compScore = document.querySelectorAll(".compScore");
 const resetGame = document.querySelector(".resetGame");
 const playerIconBox = document.querySelector(".playerIconBox");
 const playerPick = playerIconBox.querySelector("img");
@@ -17,14 +17,16 @@ const rockCompChoice = compIconBox.querySelector(".rock");
 const paperCompChoice = compIconBox.querySelector(".paper");
 const scissorsCompChoice = compIconBox.querySelector(".scissors");
 const playerSection = document.querySelector(".playerSelection");
+const result = document.getElementById("result");
+const playAgainButton = document.querySelector("#play-game-again");
 
 const ROCK = "Rock";
 const PAPER = "paper";
 const SCISSORS = "Scissors";
 
+result.style.display = "none";
 
-
-// Opening game delay functiona
+// Opening game delay functionality
 function delay() {
   window.onload = function () {
     setTimeout(function () {
@@ -36,8 +38,6 @@ function delay() {
 
 delay();
 
-
-
 // Start game button
 startGame.addEventListener("click", function (e) {
   e.preventDefault();
@@ -46,14 +46,51 @@ startGame.addEventListener("click", function (e) {
 });
 
 // User RPS selelection
-rockChoice.addEventListener("click", () => playerSelection("rock"));
-paperChoice.addEventListener("click", () => playerSelection("paper"));
-scissorsChoice.addEventListener("click", () => playerSelection("scissors"));
+function rockPlayerSelection() {
+  playerSelection("rock");
+}
+
+function paperPlayerSelection() {
+  playerSelection("paper");
+}
+
+function scissorsPlayerSelection() {
+  playerSelection("scissors");
+}
+
+rockChoice.addEventListener("click", rockPlayerSelection);
+paperChoice.addEventListener("click", paperPlayerSelection);
+scissorsChoice.addEventListener("click", scissorsPlayerSelection);
+
 const CHOICE = "choice";
 
+function resetGameRound() {
+  rockChoice.removeEventListener("click", rockPlayerSelection);
+  paperChoice.removeEventListener("click", paperPlayerSelection);
+  scissorsChoice.removeEventListener("click", scissorsPlayerSelection);
 
+  setTimeout(() => {
+    rockChoice.addEventListener("click", rockPlayerSelection);
+    paperChoice.addEventListener("click", paperPlayerSelection);
+    scissorsChoice.addEventListener("click", scissorsPlayerSelection);
 
-// PlayerSelection function 
+    rockChoice.style.visibility = "visible";
+    paperChoice.style.visibility = "visible";
+    scissorsChoice.style.visibility = "visible";
+
+    playerCurentChoice.remove();
+
+    rockCompChoice.style.visibility = "visible";
+    paperCompChoice.style.visibility = "visible";
+    scissorsCompChoice.style.visibility = "visible";
+
+    compCurentChoice.remove();
+
+    document.getElementById("game-result").remove();
+  }, 3000);
+}
+
+// PlayerSelection function
 function playerSelection(CHOICE) {
   if (CHOICE === "rock") {
     rock();
@@ -62,11 +99,10 @@ function playerSelection(CHOICE) {
   } else {
     scissors();
   }
-  computerSelection(randomNumber);
+  const randomNumber = computerSelection();
+
   getWinner(CHOICE, randomNumber);
 }
-
-
 
 const playerCurentChoice = document.createElement("p");
 playerCurentChoice.style.color = "white";
@@ -94,11 +130,10 @@ function scissors() {
   playerIconBox.insertAdjacentElement("beforeend", playerCurentChoice);
 }
 
-
 // ComputerSelection function
-const randomNumber = Math.random() * 0.5;
-function computerSelection(randomNumber) {
-  console.log(randomNumber);
+function computerSelection() {
+  let randomNumber = Math.random() * 0.5;
+
   if (randomNumber < 0.17) {
     compRock();
   } else if (randomNumber < 0.34) {
@@ -106,6 +141,8 @@ function computerSelection(randomNumber) {
   } else if (randomNumber > 0.34) {
     compScissors();
   }
+
+  return randomNumber;
 }
 function compRock() {
   paperCompChoice.style.visibility = "hidden";
@@ -130,22 +167,10 @@ let YOU_WIN = "You win! :)";
 let YOU_DRAW = "It's a draw!";
 let YOU_LOSE = "You lost! :(";
 
+const round = localStorage.getItem("round");
 
-
-
-// const round = localStorage("round") || 1;
-
-// if (round <= 20) {
-//   localStorage.setItem("round", round + 1);
-//   localStorage.setItem("scores", JSON.stringify({ player: 0, computer: 0 }));
-//   // Reload Page
-// } else {
-//   const scores = JSON.parse(localStorage.getItem("scores"));
-//   const player = scores["player"];
-//   // Show Score
-//   localStorage.setItem("round", 1);
-// }
-
+localStorage.setItem("round", 0);
+localStorage.setItem("scores", JSON.stringify({ player: 0, computer: 0 }));
 
 // getWinner of the game function
 const roundResult = document.createElement("p");
@@ -170,25 +195,61 @@ function getWinner(CHOICE, randomNumber) {
   ) {
     draw();
   }
+
+  const round = parseInt(localStorage.getItem("round"));
+  const scores = JSON.parse(localStorage.getItem("scores"));
+
+  const nextRound = round + 1;
+
+  if (nextRound < 6) {
+    localStorage.setItem("round", nextRound);
+    gameCurrentRound.textContent = nextRound;
+
+    resetGameRound();
+  } else {
+    gameGround.style.display = "none";
+    result.style.display = "block";
+
+    playerScore[1].textContent = scores["player"];
+    compScore[1].textContent = scores["computer"];
+  }
+
+  playerScore[0].textContent = scores["player"];
+  compScore[0].textContent = scores["computer"];
 }
 
+playAgainButton.addEventListener("click", () => {
+  location.reload();
+});
+
 function win() {
+  const scores = JSON.parse(localStorage.getItem("scores"));
+
+  scores["player"] += 1;
+
+  localStorage.setItem("scores", JSON.stringify(scores));
+
   gameBox.insertAdjacentHTML(
     "afterend",
-    "<p style='color:white;'>You Win! :)</p>"
+    "<p id='game-result' style='color:white;'>You Win! :)</p>"
   );
 }
 function draw() {
   gameBox.insertAdjacentHTML(
     "afterend",
-    "<p style='color:white;'>A draw :|</p>"
+    "<p id='game-result' style='color:white;'>A draw :|</p>"
   );
 }
 function lost() {
+  const scores = JSON.parse(localStorage.getItem("scores"));
+
+  scores["computer"] += 1;
+
+  localStorage.setItem("scores", JSON.stringify(scores));
+
   gameBox.insertAdjacentHTML(
     "afterend",
-    "<p style='color:white;'>You Lose! :(</p>"
+    "<p id='game-result' style='color:white;'>You Lose! :(</p>"
   );
   console.log(roundResult.textContent);
 }
-
